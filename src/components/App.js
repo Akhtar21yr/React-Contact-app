@@ -6,12 +6,11 @@ import ContactList from "./ContactList";
 import { v4 as uuid } from "uuid";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import ContactDetails from "./ContactDetails";
+import api from '../api/contacts'
 
 function App() {
   const LSK = "contacts";
-  const [contacts, setContacts] = useState(
-    JSON.parse(localStorage.getItem(LSK)) ?? []
-  );
+  const [contacts, setContacts] = useState([]);
 
   const addContactHandler = (contact) => {
     setContacts([...contacts, { id: uuid(), ...contact }]);
@@ -22,10 +21,22 @@ function App() {
     setContacts(newContactList);
   };
 
-  useEffect(() => {
-    localStorage.setItem(LSK, JSON.stringify(contacts));
-  }, [contacts]);
+  // retrive contacts data
+  const retriveContacts = async () => {
+    const response = await api.get("/contacts")
+    return response.data;
+  }
 
+  useEffect(() => {
+    const getAllContacts = async () => {
+      const allContacts = await retriveContacts();
+      // console.log(allContacts)
+      if (allContacts) setContacts(allContacts[0])
+    };
+  getAllContacts();
+  },[])
+
+  
   return (
     <Router>
       <div className="ui container">

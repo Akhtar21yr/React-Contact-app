@@ -6,10 +6,11 @@ export default function ContactList(props) {
     const deleteContactHandler = (id) => {
         props.getContactId(id);
     };
-    
-    const renderContactList = props.contacts.map((contact) => {
+    // console.log(props.contacts)
+    const renderContactList = props.contacts.map((obj) => {
+        console.log(obj)
         return (
-            <ContactCard contact={contact} clickHandler={deleteContactHandler} />
+            <ContactCard contact={obj} clickHandler={deleteContactHandler} />
         );
     });
     return (

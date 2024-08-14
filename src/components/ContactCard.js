@@ -4,6 +4,7 @@ import user from "../images/profile.png";
 
 export default function ContactCard(props) {
     const { id, name, email } = props.contact;
+    console.log(props.contact)
 
     return (
         <div className="item">
