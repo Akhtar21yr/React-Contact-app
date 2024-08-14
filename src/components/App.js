@@ -11,14 +11,13 @@ function App() {
   const [contacts, setContacts] = useState(
     JSON.parse(localStorage.getItem(LSK)) ?? []
   );
+
   const addContactHandler = (contact) => {
     setContacts([...contacts, { id: uuid(), ...contact }]);
   };
 
   const removeContactHandler = (id) => {
-    const newContactList = contacts.filter((contact) => {
-      return contact.id !== id;
-    });
+    const newContactList = contacts.filter((contact) => contact.id !== id);
     setContacts(newContactList);
   };
 
@@ -31,10 +30,17 @@ function App() {
       <div className="ui container">
         <Header />
         <Routes>
-          <Route path="/add" Component={AddContact} />
-          <Route path="/" Component={ContactList} />
-          {/* <AddContact addContactHandler={addContactHandler} />
-        <ContactList contacts={contacts} getContactId={removeContactHandler} /> */}
+          
+          <Route
+            path="/add"
+            element={<AddContact addContactHandler={addContactHandler} />}
+          />
+
+          <Route
+            path="/"
+            element={<ContactList contacts={contacts} getContactId={removeContactHandler} />}
+          />
+
         </Routes>
       </div>
     </Router>
