@@ -12,13 +12,19 @@ function App() {
   const LSK = "contacts";
   const [contacts, setContacts] = useState([]);
 
-  const addContactHandler = (contact) => {
-    setContacts([...contacts, { id: uuid(), ...contact }]);
+  const addContactHandler = async (contact) => {
+    const request = {
+      id : uuid(),
+      ...contact
+    }
+    const response = await api.post("/contacts",request)
+    setContacts([...contacts, response.data]);
   };
 
-  const removeContactHandler = (id) => {
-    const newContactList = contacts.filter((contact) => contact.id !== id);
-    setContacts(newContactList);
+  const removeContactHandler = async (id) => {
+    await api.delete(`/contacts/${id}`)
+    const newContacts = contacts.filter(obj=>obj.id!=id)
+    setContacts(newContacts)
   };
 
   // retrive contacts data
@@ -31,7 +37,7 @@ function App() {
     const getAllContacts = async () => {
       const allContacts = await retriveContacts();
       // console.log(allContacts)
-      if (allContacts) setContacts(allContacts[0])
+      if (allContacts) setContacts(allContacts)
     };
   getAllContacts();
   },[])
