@@ -4,7 +4,8 @@ import Header from "./Header";
 import AddContact from "./AddContact";
 import ContactList from "./ContactList";
 import { v4 as uuid } from "uuid";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import ContactDetails from "./ContactDetails";
 
 function App() {
   const LSK = "contacts";
@@ -30,7 +31,8 @@ function App() {
       <div className="ui container">
         <Header />
         <Routes>
-          
+          <Route path="/contact/:id" Component={ContactDetails} />
+
           <Route
             path="/add"
             element={<AddContact addContactHandler={addContactHandler} />}
@@ -38,9 +40,13 @@ function App() {
 
           <Route
             path="/"
-            element={<ContactList contacts={contacts} getContactId={removeContactHandler} />}
+            element={
+              <ContactList
+                contacts={contacts}
+                getContactId={removeContactHandler}
+              />
+            }
           />
-
         </Routes>
       </div>
     </Router>

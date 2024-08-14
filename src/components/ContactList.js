@@ -9,7 +9,7 @@ export default function ContactList(props) {
     
     const renderContactList = props.contacts.map((contact) => {
         return (
-            <ContactCard contacts={contact} clickHandler={deleteContactHandler} />
+            <ContactCard contact={contact} clickHandler={deleteContactHandler} />
         );
     });
     return (
