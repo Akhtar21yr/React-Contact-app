@@ -3,9 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const EditContact = ({ updateContactHandler }) => {
-    
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
+    const location = useLocation();
+    const data = location.state.contact;
+    const id = data.id
+    const [name, setName] = useState(data.name);
+    const [email, setEmail] = useState(data.email);
     const navigate = useNavigate();
 
     const update = (e) => {
@@ -22,7 +24,7 @@ const EditContact = ({ updateContactHandler }) => {
 
     return (
         <div className='ui main'>
-            <h2>Add Contact</h2>
+            <h2>Update Contact</h2>
             <form className='ui form' onSubmit={update}>
                 <div className='field'>
                     <label>Name</label>
@@ -44,7 +46,7 @@ const EditContact = ({ updateContactHandler }) => {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <button className='ui button blue'>Add</button>
+                <button className='ui button blue'>Update</button>
             </form>
         </div>
     );
